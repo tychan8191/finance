@@ -11,6 +11,8 @@ start_date = end_date - dt.timedelta(days = 365)
 
 data = yf.download(ticker, start = start_date, end = end_date, auto_adjust=False)
 
+print(data.head(5))
+
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize = (12,8), gridspec_kw= {'height_ratios': [4,1]})
 
 ax1.plot(data.index, data['Adj Close'], label = 'Adjusted Close Price', linewidth = 1)
@@ -29,8 +31,6 @@ ax2.set_xlabel('Date', fontsize = 12)
 
 plt.grid(True, alpha = 0.3)
 
+print(data.columns.nlevels)
 plt.tight_layout()
-
-
-
-plt.show()
+#plt.show()
