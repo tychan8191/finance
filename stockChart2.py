@@ -7,14 +7,15 @@ import mplfinance as mpf
 
 ticker = "SPY"
 
+years = 2
 end_date = dt.datetime.now()
-start_date = end_date - dt.timedelta(days = 365)
+start_date = end_date - dt.timedelta(days = 365 * years)
 
 data = yf.download(ticker, start = start_date, end = end_date, auto_adjust=False)
 data.columns = data.columns.droplevel(1)
-print(data.head(5))
+
 ma_50 = data['Adj Close'].rolling(window=50, min_periods=0).mean()
-ma_20 = data['Adj Close'].rolling(window=20, min_periods=0).mean()
+ma_200 = data['Adj Close'].rolling(window=200, min_periods=0).mean()
 
 '''Below does not use mplfinance to create candlestick
 fig, (ax1, ax2) = plt.subplots(2, 1, figsize = (12,8), gridspec_kw= {'height_ratios': [4,1]})
@@ -36,10 +37,10 @@ plt.show()
 
 apds = [
     mpf.make_addplot(ma_50, color='orange', width=0.7, label='50 Day MA'),
-    mpf.make_addplot(ma_20, color='red', width=0.7, label='20 Day MA')
+    mpf.make_addplot(ma_200, color='red', width=0.7, label='20 Day MA')
 ]
 
 mpf.plot(data, type='candle', style='charles', volume=True, 
-         addplot=apds, title=f'{ticker} Candlestick Chart',
+         mav= (50, 200), title=f'{ticker} Candlestick Chart',
          ylabel='Price', ylabel_lower='Volume',
          figsize=(12, 8))
