@@ -49,6 +49,7 @@ plt.title("Cumulative Return")
 
 #Comment these out to show certain figures
 #plt.close(figure1)
-#plt.close(figure2)
+plt.close(figure2)
 plt.close(figure3)
+plt.close(figure4)
 plt.show()
